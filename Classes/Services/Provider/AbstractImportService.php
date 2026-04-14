@@ -282,4 +282,9 @@ abstract class AbstractImportService implements ImportProviderInterface
             ->executeQuery();
         return $value;
     }
+
+    public function getGroupForTca(): string
+    {
+        return 'Default';
+    }
 }

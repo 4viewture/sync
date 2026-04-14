@@ -18,7 +18,7 @@ return [
     ],
     'types' => [
         '0' => [
-            'showitem' => 'sys_language_uid,--palette--,l10n_parent,l10n_diffsource,hidden,title,uri,provider,processingfolder,storage_pid,description,--div--;News,news_type,news_is_hidden_after_import,news_is_top_news,categories,--div--;Cache,auto_clear_cache_for_plugin,clear_cache_pages,--div--;Sync Log,lastsync,lastsynclog,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,starttime,endtime'
+            'showitem' => 'sys_language_uid,--palette--,l10n_parent,l10n_diffsource,provider,hidden,title,uri,processingfolder,storage_pid,description,categories,--div--;Cache,auto_clear_cache_for_plugin,clear_cache_pages,--div--;Sync Log,lastsync,lastsynclog,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access,starttime,endtime'
         ]
     ],
     'palettes' => [

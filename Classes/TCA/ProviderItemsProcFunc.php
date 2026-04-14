@@ -29,6 +29,8 @@ class ProviderItemsProcFunc
 
         $entries = $importService->getPossibleServices();
 
+        $collectedEntries = [];
+
         foreach ($entries as $entry) {
             $label = $entry;
             $canHandle = false;
@@ -49,11 +51,21 @@ class ProviderItemsProcFunc
                 $label = '⚠ ' . $label;
             }
 
-            $params['items'][] = [
+            $collectedEntries[$obj->getGroupForTca()][] = [
                 'label' => $label,
                 'value' => $entry,
                 'icon' => $canHandle ? 'status-dialog-ok' : 'status-dialog-error',
             ];
+        }
+
+        foreach ($collectedEntries as $group => $items) {
+            $params['items'][] = [
+                'label' => $group,
+                'value' => '--div--',
+            ];
+            foreach ($items as $item) {
+                $params['items'][] = $item;
+            }
         }
     }
 }

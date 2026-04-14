@@ -23,4 +23,6 @@ interface ImportProviderInterface
     public function getLog(): string;
 
     public function getLabelForTca(): string;
+
+    public function getGroupForTca(): string;
 }

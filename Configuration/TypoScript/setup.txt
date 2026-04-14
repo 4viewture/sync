@@ -1,0 +1,24 @@
+
+# Module configuration
+module.tx_4viewture_newssyncsync {
+    persistence {
+        storagePid = {$module.tx_4viewture_sync.persistence.storagePid}
+    }
+
+
+    view {
+        templateRootPaths.0 = {$module.tx_4viewture_sync.view.templateRootPath}
+        partialRootPaths.0 = {$module.tx_4viewture_sync.view.partialRootPath}
+        layoutRootPaths.0 = {$module.tx_4viewture_sync.view.layoutRootPath}
+    }
+    persistence {
+        classes {
+            Fourviewture\Newssync\Domain\Model\Page {
+                mapping {
+                    tableName = pages
+                }
+            }
+        }
+
+    }
+}

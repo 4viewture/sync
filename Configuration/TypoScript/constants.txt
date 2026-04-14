@@ -1,0 +1,15 @@
+
+module.tx_4viewture_sync {
+    view {
+        # cat=module.tx_sync_sync/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:sync/Resources/Private/Backend/Templates/
+        # cat=module.tx_sync_sync/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:sync/Resources/Private/Backend/Partials/
+        # cat=module.tx_sync_sync/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:sync/Resources/Private/Backend/Layouts/
+    }
+    persistence {
+        # cat=module.tx_sync_sync//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}

@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  _instanceof:
+    FourViewture\Sync\Services\Provider\ImportProviderInterface:
+      tags: ['4viewture.sync.provider']
+
+
+  FourViewture\Sync\:
+    resource: '../Classes/*'
+
+  FourViewture\Sync\Services\Provider\:
+    resource: '../Classes/Services/Provider/*'
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  FourViewture\Sync\Command\SyncAllCommandController:
+    tags:
+      - name: 'console.command'
+        command: 'sync:all'
+        schedulable: true
+
+  FourViewture\Sync\Services\ImportService:
+    arguments:
+      $injectedServices: !tagged_iterator 4viewture.sync.provider

@@ -1,0 +1,19 @@
+module.tx_sync {
+  view {
+    templateRootPaths.0 = EXT:sync/Resources/Private/Templates/
+    partialRootPaths.0  = EXT:sync/Resources/Private/Partials/
+    layoutRootPaths.0   = EXT:sync/Resources/Private/Layouts/
+  }
+}
+config.tx_extbase{
+  persistence{
+    classes{
+      FourViewture\Sync\Domain\Model\Page {
+        mapping {
+          tableName = pages
+          recordType = Tx_Sync_Page
+        }
+      }
+    }
+  }
+}

@@ -77,7 +77,6 @@ abstract class AbstractImportService implements ImportProviderInterface
 
         /** @var ExtensionConfiguration $configurationUtility */
         $configurationUtility = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-        $this->emConfiguration = $configurationUtility->get('newssync');
     }
 
 

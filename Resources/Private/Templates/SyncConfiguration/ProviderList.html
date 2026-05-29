@@ -1,0 +1,58 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+      xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <style>
+        th {
+            max-width: 50%;
+
+        }
+    </style>
+
+    <h1>Sync Provider</h1>
+
+    <f:groupedFor each="{providers}" as="groupedProviders" groupBy="groupForTca" groupKey="groupForTca">
+        <h2>{groupForTca}</h2>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Beschreibung</th>
+            </tr>
+            </thead>
+            <tbody>
+            <f:for each="{groupedProviders}" as="provider">
+                <tr>
+                    <td>
+                        <strong>{provider.labelForTca}</strong>
+                        <f:if condition="{provider.groupForTca}">
+                            <br /><small class="text-muted">Gruppe: {provider.groupForTca}</small>
+                        </f:if>
+                        <f:if condition="{provider.documentationUrl}">
+                            <f:link.typolink parameter="{provider.documentationUrl}" target="_blank" class="btn btn-default btn-sm">
+                                <core:icon identifier="actions-document-view" /> Dokumentation
+                            </f:link.typolink>
+                        </f:if>
+                        <small class="text-muted">
+                            | EXT:{provider.extension}
+                        </small>
+                        <small title="{provider.class}" class="text-muted">
+                            | <core:icon identifier="modulegroup-help" />
+                        </small>
+                    </td>
+                    <td>
+                        <f:format.nl2br>{provider.description}</f:format.nl2br>
+                    </td>
+                </tr>
+            </f:for>
+            </tbody>
+        </table>
+    </f:groupedFor>
+
+</f:section>
+</html>

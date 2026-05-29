@@ -70,11 +70,43 @@ class SyncConfigurationController extends ActionController
     {
         $syncConfigurations = $this->syncConfigurationRepository->findAllIncludingDisabled();
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->generateMenu($moduleTemplate);
         // Adding title, menus, buttons, etc. using $moduleTemplate ...
         $moduleTemplate->assign('syncConfigurations', $syncConfigurations);
         $moduleTemplate->assign('content', $this->view->render());
         return $this->htmlResponse($moduleTemplate->render('SyncConfiguration/List'));
     }
+
+    public function providerListAction(): ResponseInterface
+    {
+        $providers = $this->importService->getServices();
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->generateMenu($moduleTemplate);
+        $moduleTemplate->assign('providers', $providers);
+        $moduleTemplate->assign('content', $this->view->render());
+        return $this->htmlResponse($moduleTemplate->render('SyncConfiguration/ProviderList'));
+    }
+
+    protected function generateMenu(\TYPO3\CMS\Backend\Template\ModuleTemplate $moduleTemplate): void
+    {
+        $menu = $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu->setIdentifier('sync_menu');
+
+        $actions = [
+            ['action' => 'list', 'label' => 'Synchronisation'],
+            ['action' => 'providerList', 'label' => 'Provider Übersicht'],
+        ];
+
+        foreach ($actions as $action) {
+            $item = $menu->makeMenuItem()
+                ->setTitle($action['label'])
+                ->setHref((string)$this->uriBuilder->reset()->uriFor($action['action']))
+                ->setActive($this->request->getControllerActionName() === $action['action']);
+            $menu->addMenuItem($item);
+        }
+        $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+    }
+
     /**
      * action show
      *

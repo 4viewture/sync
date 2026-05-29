@@ -25,4 +25,6 @@ interface ImportProviderInterface
     public function getLabelForTca(): string;
 
     public function getGroupForTca(): string;
+    public function getDescription(): string;
+    public function getDocumentationUrl(): string;
 }

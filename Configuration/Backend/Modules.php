@@ -15,7 +15,7 @@ return [
         'icon' => 'EXT:sync/Resources/Public/Icons/module_syncconfiguration.svg',
         'controllerActions' => [
             \FourViewture\Sync\Controller\SyncConfigurationController::class => [
-                'list','show','refreshData',
+                'list','show','refreshData', 'providerList',
             ],
         ],
     ]

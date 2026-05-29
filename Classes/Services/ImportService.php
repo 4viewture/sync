@@ -41,7 +41,7 @@ class ImportService
         }
     }
 
-    public function import(SyncConfiguration &$syncConfiguration): void
+    public function import(SyncConfiguration $syncConfiguration): void
     {
         if (count($this->services) === 0) {
             $syncConfiguration->setLastsynclog('No import providers defined (' . count($this->services) . ')');
@@ -66,6 +66,14 @@ class ImportService
             $possibleServices[] = get_class($service);
         }
         return $possibleServices;
+    }
+
+    /**
+     * @return ImportProviderInterface[]
+     */
+    public function getServices(): array
+    {
+        return $this->services;
     }
 
     protected function getMatchingService(SyncConfiguration $syncConfiguration): AbstractImportService

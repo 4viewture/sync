@@ -3,11 +3,13 @@
 namespace FourViewture\Sync\Services\Provider;
 
 use FourViewture\Sync\Domain\Model\SyncConfiguration;
+use FourViewture\Sync\Services\DocBlockService;
 use GeorgRinger\News\Domain\Model\FileReference;
 use GeorgRinger\News\Domain\Model\Link;
 use GeorgRinger\News\Domain\Model\News;
 use GeorgRinger\News\Domain\Model\NewsDefault;
 use GeorgRinger\News\Domain\Repository\NewsRepository;
+use ReflectionClass;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
@@ -17,6 +19,7 @@ use TYPO3\CMS\Core\DataHandling\Model\RecordStateFactory;
 use TYPO3\CMS\Core\DataHandling\SlugHelper;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Resource\Exception\ExistingTargetFileNameException;
 use TYPO3\CMS\Core\Resource\Folder;
 use TYPO3\CMS\Core\Resource\Index\FileIndexRepository;
@@ -57,6 +60,8 @@ abstract class AbstractImportService implements ImportProviderInterface
      */
     protected $storageRepository;
 
+    protected DocBlockService $docBlockService;
+
     public function __construct(
         PersistenceManager $persistenceManager,
         ?ConnectionPool $connectionPool = null,
@@ -79,6 +84,10 @@ abstract class AbstractImportService implements ImportProviderInterface
         $configurationUtility = GeneralUtility::makeInstance(ExtensionConfiguration::class);
     }
 
+    public function injectDocBlockService(DocBlockService $docBlockService): void
+    {
+        $this->docBlockService = $docBlockService;
+    }
 
 
     protected function getLLLString(): string
@@ -286,5 +295,26 @@ abstract class AbstractImportService implements ImportProviderInterface
     public function getGroupForTca(): string
     {
         return 'Default';
+    }
+
+    public function getClass(): string
+    {
+        return static::class;
+    }
+
+    public function getDescription(): string
+    {
+        $docComment = (new ReflectionClass(static::class))->getDocComment();
+        return $this->docBlockService->getDescription($docComment);
+    }
+
+    public function getDocumentationUrl(): string
+    {
+        return '';
+    }
+
+    public function getExtension(): string
+    {
+        return 'sync';
     }
 }
